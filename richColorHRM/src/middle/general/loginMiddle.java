@@ -12,8 +12,6 @@ import common.message;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 
 /**
  *
