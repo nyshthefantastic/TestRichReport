@@ -20,6 +20,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 import middle.employee.registerMiddle;
+import middle.employee.updateMiddle;
 
 /**
  *
@@ -421,13 +422,38 @@ public class registerClient extends javax.swing.JFrame {
         // TODO add your handling code here:
         String search = searchTable.getText();
 
-        registerMiddle rm = new registerMiddle();
+        updateMiddle rm = new updateMiddle();
         rm.searchEmployee(jTable1, "SELECT * FROM employeeregister WHERE RegisterNo='" + search + "'", search);
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        String regNo=regNumText.getText();
+         String fName = fNameText.getText();
+        String lName = lNameText.getText();
+        String cNum = cNumText.getText();
+        String nic = nicText.getText();
+
+        Date oDate = dobText.getDate();
+        DateFormat oDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String dob = oDateFormat.format(oDate);
+
+        DateFormat oDateFormatt = new SimpleDateFormat("yyyy");
+        String year = oDateFormatt.format(oDate);
+
+        String gender = genderText.getSelectedItem().toString();
+        String bank = bankText.getText();
+        String acNum = acNumText.getText();
+        double bSalary = Double.parseDouble(bSalaryText.getText());
+        String category = categoryText.getSelectedItem().toString();
+        String designation = designationText.getSelectedItem().toString();
+        String department = departmentText.getSelectedItem().toString();
+        String status = statusText.getSelectedItem().toString();
+
+        updateMiddle uM = new updateMiddle();
+        uM.updateEmployee(regNo,fName, lName, cNum, nic, dob, gender, bank, acNum, bSalary, category, designation, department, year, status);
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void searchTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTableKeyPressed
@@ -444,7 +470,7 @@ public class registerClient extends javax.swing.JFrame {
         // TODO add your handling code here:
         String search = searchTable.getText();
 
-        registerMiddle rm = new registerMiddle();
+        updateMiddle rm = new updateMiddle();
         rm.searchEmployee(jTable1, "SELECT * FROM employeeregister WHERE RegisterNo='" + search + "'", search);
     }//GEN-LAST:event_searchTableActionPerformed
 
@@ -452,7 +478,7 @@ public class registerClient extends javax.swing.JFrame {
         // TODO add your handling code here:
         String search = searchTable.getText();
 
-        registerMiddle rm = new registerMiddle();
+        updateMiddle rm = new updateMiddle();
         rm.searchEmployee(jTable1, "SELECT * FROM employeeregister WHERE RegisterNo='" + search + "'", search);
         search = "";
 
@@ -467,7 +493,7 @@ public class registerClient extends javax.swing.JFrame {
         int column = 0;
         int row = jTable1.getSelectedRow();
         String value = jTable1.getModel().getValueAt(row, column).toString();
-        registerMiddle rr = new registerMiddle();
+        updateMiddle rr = new updateMiddle();
        String rec[]=new String[14];
          rec= rr.populateFields(value);
       regNumText.setText(rec[0]);

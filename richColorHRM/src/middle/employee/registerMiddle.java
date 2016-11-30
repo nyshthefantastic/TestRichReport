@@ -56,76 +56,9 @@ public class registerMiddle {
         }
     }
 
-    public void searchEmployee(JTable table, String Query, String searchTerm) {
+   
 
-        try {
-
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(Query);
-
-            //To remove previously added rows
-            while (table.getRowCount() > 0) {
-                ((DefaultTableModel) table.getModel()).removeRow(0);
-            }
-            int columns = rs.getMetaData().getColumnCount();
-            while (rs.next()) {
-                Object[] row = new Object[columns];
-                for (int i = 1; i <= columns; i++) {
-                    row[i - 1] = rs.getObject(i);
-                }
-                ((DefaultTableModel) table.getModel()).insertRow(rs.getRow() - 1, row);
-            }
-
-            rs.close();
-            stmt.close();
-            con.close();
-        } catch (SQLException e) {
-        }
-
-    }
-
-    public String[] populateFields(String value) {
-
-        String[] sta = new String[14] ;
-
-        registerClient rc = new registerClient();
-        try {
-            String load = "SELECT * FROM employeeregister WHERE RegisterNo='" + value + "'";
-
-            pst = con.prepareStatement(load);
-            rs = pst.executeQuery();
-            if(rs.next()){
-               sta[0] = rs.getString("RegisterNo");
-                sta[1] = rs.getString("fName");
-                sta[2] = rs.getString("lName");
-                sta[3] = rs.getString("contactNo");
-                sta[4] = rs.getString("nic");
-               sta[5] = rs.getString("dob");
-                sta[6] = rs.getString("gender");
-               sta[7] = rs.getString("bank");
-               sta[8]= rs.getString("accountNo");
-               sta[9] = rs.getString("bSalary");
-               sta[10]= rs.getString("category");
-                sta[11] = rs.getString("designation");
-                sta[12] = rs.getString("department");
-                sta[13] = rs.getString("status");
-               
-                rs.close();
-                pst.close();
-                con.close();
-                return sta;
-            }
-
-
-         
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-           return sta;
-    }
-
-    private String getAge(String year) {
+    public String getAge(String year) {
 
         Calendar now = Calendar.getInstance();
         int yeare = now.get(Calendar.YEAR);
@@ -136,7 +69,7 @@ public class registerMiddle {
         return xyear;
     }
 
-    private boolean validateRegister(String fName, String lName, String cNum, String nic, String dob, String gender, String bank, String acNum, double bSalary, String category, String designation, String department, String nyear) {
+    public boolean validateRegister(String fName, String lName, String cNum, String nic, String dob, String gender, String bank, String acNum, double bSalary, String category, String designation, String department, String nyear) {
         validations v = new validations();
         boolean fieldEmpty = v.checkEmptyField(fName, lName, cNum, nic, dob, bank, acNum, bSalary, nyear);
         boolean fieldText = v.checkFieldText(fName, lName, bank);
