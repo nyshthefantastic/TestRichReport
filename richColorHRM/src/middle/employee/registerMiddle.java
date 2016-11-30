@@ -5,6 +5,7 @@
  */
 package middle.employee;
 
+import client.employee.registerClient;
 import common.dbconnct;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -81,6 +82,47 @@ public class registerMiddle {
         } catch (SQLException e) {
         }
 
+    }
+
+    public String[] populateFields(String value) {
+
+        String[] sta = new String[14] ;
+
+        registerClient rc = new registerClient();
+        try {
+            String load = "SELECT * FROM employeeregister WHERE RegisterNo='" + value + "'";
+
+            pst = con.prepareStatement(load);
+            rs = pst.executeQuery();
+            if(rs.next()){
+               sta[0] = rs.getString("RegisterNo");
+                sta[1] = rs.getString("fName");
+                sta[2] = rs.getString("lName");
+                sta[3] = rs.getString("contactNo");
+                sta[4] = rs.getString("nic");
+               sta[5] = rs.getString("dob");
+                sta[6] = rs.getString("gender");
+               sta[7] = rs.getString("bank");
+               sta[8]= rs.getString("accountNo");
+               sta[9] = rs.getString("bSalary");
+               sta[10]= rs.getString("category");
+                sta[11] = rs.getString("designation");
+                sta[12] = rs.getString("department");
+                sta[13] = rs.getString("status");
+               
+                rs.close();
+                pst.close();
+                con.close();
+                return sta;
+            }
+
+
+         
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+           return sta;
     }
 
     private String getAge(String year) {

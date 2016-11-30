@@ -5,24 +5,33 @@
  */
 package client.employee;
 
-
 import common.dbconnct;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableModel;
 import middle.employee.registerMiddle;
+
 /**
  *
  * @author U Computers
  */
 public class registerClient extends javax.swing.JFrame {
- Connection con = null;
+
+    Connection con = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-     String reg;
+    String reg;
+
     /**
      * Creates new form registerClient
      */
@@ -30,7 +39,7 @@ public class registerClient extends javax.swing.JFrame {
         initComponents();
         con = dbconnct.connect();
         setregNum();
-       
+
     }
 
     /**
@@ -180,6 +189,16 @@ public class registerClient extends javax.swing.JFrame {
                 "RegistrationNo", "FirstName", "LastName", "ContactNo"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jTable1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jTable1PropertyChange(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButton2.setText("SEARCH");
@@ -372,39 +391,40 @@ public class registerClient extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-       String fName=fNameText.getText();
-       String lName=lNameText.getText();
-       String cNum =cNumText.getText();
-       String nic=nicText.getText();
-       
-       Date oDate = dobText.getDate();        
+        String fName = fNameText.getText();
+        String lName = lNameText.getText();
+        String cNum = cNumText.getText();
+        String nic = nicText.getText();
+
+        Date oDate = dobText.getDate();
         DateFormat oDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-       String dob = oDateFormat.format(oDate);
-       
-       DateFormat oDateFormatt = new SimpleDateFormat("yyyy");
+        String dob = oDateFormat.format(oDate);
+
+        DateFormat oDateFormatt = new SimpleDateFormat("yyyy");
         String year = oDateFormatt.format(oDate);
-      
-       String gender=genderText.getSelectedItem().toString();
-       String bank=bankText.getText();
-       String acNum=acNumText.getText();
-       double bSalary=Double.parseDouble(bSalaryText.getText());
-       String category=categoryText.getSelectedItem().toString();
-       String designation=designationText.getSelectedItem().toString();
-       String department=departmentText.getSelectedItem().toString();
-       String status=statusText.getSelectedItem().toString();
-       
-       registerMiddle rM=new registerMiddle();
-       rM.registerEmployee(fName,lName,cNum,nic,dob,gender,bank,acNum,bSalary,category,designation,department,year,status);
-        
+
+        String gender = genderText.getSelectedItem().toString();
+        String bank = bankText.getText();
+        String acNum = acNumText.getText();
+        double bSalary = Double.parseDouble(bSalaryText.getText());
+        String category = categoryText.getSelectedItem().toString();
+        String designation = designationText.getSelectedItem().toString();
+        String department = departmentText.getSelectedItem().toString();
+        String status = statusText.getSelectedItem().toString();
+
+        registerMiddle rM = new registerMiddle();
+        rM.registerEmployee(fName, lName, cNum, nic, dob, gender, bank, acNum, bSalary, category, designation, department, year, status);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-         String search=searchTable.getText();
-       
-        registerMiddle rm=new registerMiddle();
+        String search = searchTable.getText();
+
+        registerMiddle rm = new registerMiddle();
         rm.searchEmployee(jTable1, "SELECT * FROM employeeregister WHERE RegisterNo='" + search + "'", search);
     }//GEN-LAST:event_jButton2ActionPerformed
+
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -412,31 +432,72 @@ public class registerClient extends javax.swing.JFrame {
 
     private void searchTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTableKeyPressed
         // TODO add your handling code here:
-     
+
     }//GEN-LAST:event_searchTableKeyPressed
 
     private void searchTableKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTableKeyTyped
         // TODO add your handling code here:
-      
+
     }//GEN-LAST:event_searchTableKeyTyped
 
     private void searchTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTableActionPerformed
         // TODO add your handling code here:
-          String search=searchTable.getText();
-       
-        registerMiddle rm=new registerMiddle();
+        String search = searchTable.getText();
+
+        registerMiddle rm = new registerMiddle();
         rm.searchEmployee(jTable1, "SELECT * FROM employeeregister WHERE RegisterNo='" + search + "'", search);
     }//GEN-LAST:event_searchTableActionPerformed
 
     private void searchTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTableKeyReleased
         // TODO add your handling code here:
-             String search=searchTable.getText();
-       
-        registerMiddle rm=new registerMiddle();
+        String search = searchTable.getText();
+
+        registerMiddle rm = new registerMiddle();
         rm.searchEmployee(jTable1, "SELECT * FROM employeeregister WHERE RegisterNo='" + search + "'", search);
-        search="";
-       
+        search = "";
+
     }//GEN-LAST:event_searchTableKeyReleased
+
+    private void jTable1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTable1PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1PropertyChange
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int column = 0;
+        int row = jTable1.getSelectedRow();
+        String value = jTable1.getModel().getValueAt(row, column).toString();
+        registerMiddle rr = new registerMiddle();
+       String rec[]=new String[14];
+         rec= rr.populateFields(value);
+      regNumText.setText(rec[0]);
+        fNameText.setText(rec[1]);
+      
+        lNameText.setText(rec[2]);
+        cNumText.setText(rec[3]);
+        nicText.setText(rec[4]);
+
+      DateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
+        Date date;
+        try {
+            date = (Date) formatter.parse(rec[5]);
+            dobText.setDate(date);
+        } catch (ParseException ex) {
+            Logger.getLogger(registerClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+        genderText.setSelectedItem(rec[6]);
+        bankText.setText(rec[7]);
+        acNumText.setText(rec[8]);
+        bSalaryText.setText(rec[9]);
+        categoryText.setSelectedItem(rec[10]);
+        designationText.setSelectedItem(rec[11]);
+        departmentText.setSelectedItem(rec[12]);
+        statusText.setSelectedItem(rec[13]);
+
+        
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -472,28 +533,28 @@ public class registerClient extends javax.swing.JFrame {
             }
         });
     }
-    private void  setregNum(){
-          try {
+
+    private void setregNum() {
+        try {
             String load = "SELECT RegisterNo FROM employeeregister";
 
             pst = con.prepareStatement(load);
             rs = pst.executeQuery();
-           
+
             while (rs.next()) {
                 reg = rs.getString("RegisterNo");
-               
-
-                
 
             }
-            int regn=Integer.parseInt(reg)+1;
+            int regn = Integer.parseInt(reg) + 1;
             regNumText.setText(String.valueOf(regn));
 
         } catch (Exception e) {
             System.out.println(e);
         }
-    
+
     }
+
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField acNumText;
     private javax.swing.JTextField bSalaryText;
