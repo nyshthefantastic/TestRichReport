@@ -21,5 +21,16 @@ public class message {
        JOptionPane.showMessageDialog(null,Message,"ALERT",JOptionPane.WARNING_MESSAGE);
   
     }
+    public boolean alertBox(String Message){
+        int confirm=JOptionPane.showConfirmDialog(null, Message);
+       
+        
+        if(confirm==0){
+            return true;
+        }
+        return false;
+
+    
+    }
     
 }
