@@ -7,10 +7,6 @@ package common;
 
 import javax.swing.JOptionPane;
 
-
-
-
-
 /**
  *
  * @author U Computers
@@ -22,9 +18,7 @@ public class message {
   
     }
     public boolean alertBox(String Message){
-        int confirm=JOptionPane.showConfirmDialog(null, Message);
-       
-        
+        int confirm=JOptionPane.showConfirmDialog(null, Message);       
         if(confirm==0){
             return true;
         }

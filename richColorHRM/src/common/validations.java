@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 public class validations {
 
     message mess = null;
-//------------------------------------REGISTER EMPLOYEE START------------------------------------------------------
+//------------------------------------REGISTER EMPLOYEE START--------------------------------------------
     public boolean checkEmptyField(String fName, String lName, String cNum, String nic, String dob, String bank, String acNum, double bSalary, String nyear) {
         if (fName.isEmpty() | lName.isEmpty() | cNum.isEmpty() | nic.isEmpty() | dob.isEmpty() | bank.isEmpty() | acNum.isEmpty() |  nyear.isEmpty()) {
             mess = new message();
@@ -118,6 +118,7 @@ public class validations {
     }
         
     //------------------------------REGISTER EMPLOYEE END----------------    
+      
 
       
 }
