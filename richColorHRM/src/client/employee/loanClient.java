@@ -131,7 +131,8 @@ public class loanClient extends javax.swing.JFrame {
         String empNo=empNoText.getText();
         String totLoan=totLoanText.getText();
         String loanTerm=loanTermText.getText();
-     boolean bool;
+        
+        boolean bool;
         
         double perMonth=Double.parseDouble(totLoan)/Double.parseDouble(loanTerm);
         

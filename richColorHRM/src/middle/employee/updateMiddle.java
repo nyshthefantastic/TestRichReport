@@ -67,6 +67,7 @@ public class updateMiddle {
             while (table.getRowCount() > 0) {
                 ((DefaultTableModel) table.getModel()).removeRow(0);
             }
+            
             int columns = rs.getMetaData().getColumnCount();
             while (rs.next()) {
                 Object[] row = new Object[columns];

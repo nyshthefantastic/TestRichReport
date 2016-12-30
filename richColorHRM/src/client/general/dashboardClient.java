@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package client.general;
+import client.attendance.manualAttendanceClient;
+import client.employee.advanceClient;
 import client.employee.loanClient;
 import client.employee.registerClient;
 /**
@@ -28,10 +30,16 @@ public class dashboardClient extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu7 = new javax.swing.JMenu();
+        jMenu8 = new javax.swing.JMenu();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu9 = new javax.swing.JMenu();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
@@ -45,6 +53,12 @@ public class dashboardClient extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
+
+        jMenu7.setText("File");
+        jMenuBar2.add(jMenu7);
+
+        jMenu8.setText("Edit");
+        jMenuBar2.add(jMenu8);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -70,6 +84,26 @@ public class dashboardClient extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem6);
 
+        jMenu9.setText("ADVANCE");
+
+        jMenuItem12.setText("ADD");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuItem12);
+
+        jMenuItem13.setText("UPDATE");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuItem13);
+
+        jMenu1.add(jMenu9);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("PAYROLL");
@@ -85,6 +119,11 @@ public class dashboardClient extends javax.swing.JFrame {
         jMenu3.setText("ATTENDANCE");
 
         jMenuItem10.setText("MANUAL ATTENDANCE");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem10);
 
         jMenuBar1.add(jMenu3);
@@ -136,6 +175,25 @@ public class dashboardClient extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        manualAttendanceClient ma =new manualAttendanceClient();
+        ma.setVisible(true);
+        //this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        advanceClient ad = new advanceClient();
+        ad.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        advanceClient ad = new advanceClient();
+        ad.setVisible(true);
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -178,10 +236,16 @@ public class dashboardClient extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

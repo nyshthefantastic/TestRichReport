@@ -24,6 +24,7 @@ public class loanMiddle {
     public loanMiddle() {
         con = dbconnct.connect();
     }
+    
     public double checkLoan(String empNo,String totLoan,String loanTerm,double perMonth ){
        
          try {
@@ -48,6 +49,7 @@ public class loanMiddle {
            return 0;
     
     }
+    
     public void addLoan(String empNo,String totLoan,String loanTerm,double perMonth ){
          try {
                 String q = "INSERT INTO employeeloan(empNo,totalLoan,noOfTerms,monthlyAmount) VALUES ('" + empNo + "','" + totLoan + "','" + loanTerm + "','" + perMonth + "')";
