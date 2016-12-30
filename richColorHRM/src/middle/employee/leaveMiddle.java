@@ -9,6 +9,7 @@ import common.dbconnct;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -24,10 +25,29 @@ public class leaveMiddle {
     }
     
     //fill leaves
-    public static boolean fillleave(String eid){
+    public  boolean fillleave(String eid) throws SQLException{
+            
+        String allLeaves = "select count(id) from leave where  id='"+eid+"' ";
         String sickLeave = "select count(id) from leave where type='sick' and id='"+eid+"' ";
         String annualLeave = "select count(id) from leave where type='annual' id='"+eid+"'  ";
         String casualLeave = "select count(id) from leave where type='casual' id='"+eid+"'  ";
+        
+        pst = con.prepareStatement(allLeaves);
+        ResultSet X = pst.executeQuery();
+        
+                
+        
+        
+        
+      /*  pst = con.prepareStatement(sickLeave);
+        pst.executeQuery();
+        pst = con.prepareStatement(annualLeave);
+        pst.executeQuery();
+        pst = con.prepareStatement(casualLeave);
+        pst.executeQuery();
+        */
+        
+        //pst.executeQuery(allLeaves);
         
         return true;
     }

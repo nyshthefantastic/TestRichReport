@@ -111,7 +111,7 @@ public class manualAttendanceClient extends javax.swing.JFrame {
         jLabel6.setText("OUT");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, -1, -1));
 
-        nameCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        nameCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "sri", "pasan", "nimal", "kamal", "ksun" }));
         getContentPane().add(nameCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 142, -1));
 
         jButton1.setText("Submit");

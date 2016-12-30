@@ -5,18 +5,30 @@
  */
 package common;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import common.dbconnct;
 
 /**
  *
  * @author Nuwan-PC
  */
 public  class helperFunctions {
+    Statement stat=null;
+    Connection conn=null;
+    ResultSet rs=null;
+    
+    public helperFunctions(){
+        conn=dbconnct.connect();
+    }
     //----------Attendance--------------------------------------------
       public static String formatDate(Date date){
           DateFormat oDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -47,4 +59,46 @@ public  class helperFunctions {
       
     //validate attendance
      // public boolean validateAttendance(String id, String name, Date dateT, )
+      
+      //sk
+      public String searchQuery(String X ,String eid , String table){
+          
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        
+        
+             String out = null;
+       try {
+           String queryy="SELECT "+X+" FROM "+table+" WHERE id =" +eid+ " ";
+           System.out.println(queryy);
+           
+            pst=con.prepareStatement(queryy);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                out=rs.getString(X);
+              return out;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+       return out;
+    }
+      
+     public ResultSet getQuery(String sql){
+         try{
+             Statement stat=conn.createStatement();
+             return stat.executeQuery(sql);
+             
+         
+         
+         }catch(Exception e){
+             e.printStackTrace();
+             return null;
+         
+         }
+     
+     
+     }
 }
