@@ -5,6 +5,13 @@
  */
 package client.employee;
 
+import middle.employee.allowanceMiddle;
+import common.helperFunctions;
+import common.message;
+import java.*;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Date;
 /**
  *
  * @author Achala Kavinda
@@ -14,8 +21,17 @@ public class allowanceClient extends javax.swing.JFrame {
     /**
      * Creates new form allowanceClient
      */
+    allowanceMiddle allowanceMiddle;
+    Date dt;
+    boolean tabletype;
+    
     public allowanceClient() {
         initComponents();
+        tabletype=true;
+        feildIntialization();
+        allowanceMiddle = new allowanceMiddle();
+        dt = new Date();
+        InitialEmployeeTable();
     }
 
     /**
@@ -32,22 +48,24 @@ public class allowanceClient extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         epfNo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        employeeNameComboBox = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         datePicker = new org.jdesktop.swingx.JXDatePicker();
         add = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         typeComboBox = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         amount = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        edit = new javax.swing.JButton();
         reset = new javax.swing.JButton();
+        employeeName = new javax.swing.JTextField();
+        showAllAllowance = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         searchTextFeild = new javax.swing.JTextField();
         SearchBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        allowanceTable = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -65,17 +83,19 @@ public class allowanceClient extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Allowance", "Incentive" }));
-
         jLabel1.setText("Type");
-
-        typeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel5.setText("Amount");
 
-        jButton2.setText("Edit");
+        edit.setText("Edit");
 
         reset.setText("Rest");
+
+        showAllAllowance.setText("Show All Allowance");
+
+        jLabel7.setText("Totall Amount of Allowance :");
+
+        jLabel8.setText("0000");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -83,20 +103,21 @@ public class allowanceClient extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(amount))
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(employeeNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(epfNo, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(amount, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(epfNo, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                                .addComponent(employeeName))))
+                    .addComponent(showAllAllowance))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -104,25 +125,29 @@ public class allowanceClient extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(datePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(reset))
-                            .addComponent(typeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(typeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(edit)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(reset)))))
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -131,16 +156,14 @@ public class allowanceClient extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(employeeNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(employeeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(add)
-                            .addComponent(jButton2)
-                            .addComponent(reset)))
+                            .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGap(0, 69, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -149,41 +172,37 @@ public class allowanceClient extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(typeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(add)
+                            .addComponent(edit)
+                            .addComponent(reset)
+                            .addComponent(showAllAllowance))))
                 .addContainerGap())
         );
 
+        searchTextFeild.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchTextFeildKeyReleased(evt);
+            }
+        });
+
         SearchBtn.setText("Search");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        allowanceTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Date", "Type", "Amount"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        ));
+        allowanceTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                allowanceTableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-        }
+        jScrollPane1.setViewportView(allowanceTable);
 
         jLabel6.setText("Search by Customer or EPF Number");
 
@@ -195,7 +214,7 @@ public class allowanceClient extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(searchTextFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -211,7 +230,7 @@ public class allowanceClient extends javax.swing.JFrame {
                     .addComponent(searchTextFeild, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SearchBtn)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -241,8 +260,34 @@ public class allowanceClient extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-        // TODO add your handling code here:
+       
+        if(amount.getText().isEmpty() &&  allowanceMiddle.isPositive(amount.getText())){
+                 insertAllowance();
+        }
+        
+        
     }//GEN-LAST:event_addActionPerformed
+
+    private void searchTextFeildKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFeildKeyReleased
+        String value = searchTextFeild.getText();
+        if(tabletype){
+            if(value.isEmpty()){
+            System.out.println("empty");
+            InitialEmployeeTable();
+            }else{
+                searchEmployee(value);
+            }
+        }
+    }//GEN-LAST:event_searchTextFeildKeyReleased
+
+    private void allowanceTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_allowanceTableMouseClicked
+        int selectedRow=allowanceTable.getSelectedRow();
+        if(tabletype){
+            if(selectedRow!=-1){
+            selectEmployeeInitial(selectedRow);          
+            }
+        }
+    }//GEN-LAST:event_allowanceTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -278,16 +323,104 @@ public class allowanceClient extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    
+   
+    
+    // Initializing feilds
+    private void feildIntialization(){
+        //intial feild to empty
+        employeeName.setText("");
+        epfNo.setText("");
+        amount.setText("");
+        
+        //intial feild to uneditable       
+        employeeName.setEditable(false);
+        epfNo.setEditable(false);
+        amount.setEditable(false);
+        datePicker.setEditable(false);
+        typeComboBox.setEnabled(false);
+        typeComboBox.setEditable(false);
+        add.setEnabled(false);
+        edit.setEnabled(false);
+        reset.setEnabled(false);    
+        showAllAllowance.setEnabled(false);
+    }
+    
+    //initialize employee table when startup
+    private void InitialEmployeeTable(){
+       String sql ="SELECT * FROM employee";
+       ResultSet rs=allowanceMiddle.rs(sql);
+       String [] colm={"EPF","First Name","Last Name","NIC"};
+       String [] dbCols={"epfNo","fName","lName","nic"};
+       allowanceMiddle.Table(allowanceTable, sql,colm,dbCols);
+    }
+    
+    //Employee Search
+    private void searchEmployee(String elmVal){
+       String sql ="SELECT * FROM employee where epfNo like '"+elmVal+"%' "
+               + "or fName like '"+elmVal+"%'"
+               + "or lName like '"+elmVal+"%'";
+       
+       ResultSet rs=allowanceMiddle.rs(sql);
+       String [] colm={"EPF","First Name","Last Name","NIC"};
+       String [] dbCols={"epfNo","fName","lName","nic"};
+       allowanceMiddle.Table(allowanceTable, sql,colm,dbCols);
+    }
+    
+    //select employee
+    private void selectEmployeeInitial(int selectedRow){
+            String empfNo = allowanceTable.getValueAt(selectedRow, 0).toString();
+            String Name = allowanceTable.getValueAt(selectedRow, 1).toString()
+                    +" "+allowanceTable.getValueAt(selectedRow, 2).toString();
+            epfNo.setText("");
+            employeeName.setText("");
+            amount.setText("");            
+            datePicker.setDate(dt);            
+            typeCombo(true);
+            
+            epfNo.setText(empfNo);
+            employeeName.setText(Name);
+            add.setEnabled(true);
+            reset.setEnabled(true);
+            datePicker.setEditable(true);
+            showAllAllowance.setEnabled(true);
+            amount.setEditable(true);
+    }
+    
+    private void typeCombo(boolean status){
+        typeComboBox.removeAllItems();
+        if(status){
+            typeComboBox.addItem("Travelling");
+            typeComboBox.addItem("Production");
+            typeComboBox.addItem("Festival");
+            typeComboBox.addItem("Attendence");
+            typeComboBox.setEnabled(true);
+            typeComboBox.setEditable(true);
+        }else{            
+            typeComboBox.setEnabled(false);
+            typeComboBox.setEditable(false);
+        }
+    }
+    
+    private boolean insertAllowance(){
+        String date=datePicker.toString();
+        System.out.println(date);
+        String sql="INSERT INTO `allowance` (`date`, `type`, `amount`, `employeeId`) VALUES ('2017-01-01', 'Travelling', '2500', '1');";
+        return allowanceMiddle.insertQuery(sql);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton SearchBtn;
     private javax.swing.JButton add;
+    private javax.swing.JTable allowanceTable;
     private javax.swing.JTextField amount;
     private org.jdesktop.swingx.JXDatePicker datePicker;
-    private javax.swing.JComboBox<String> employeeNameComboBox;
+    private javax.swing.JButton edit;
+    private javax.swing.JTextField employeeName;
     private javax.swing.JTextField epfNo;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -295,12 +428,14 @@ public class allowanceClient extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton reset;
     private javax.swing.JTextField searchTextFeild;
+    private javax.swing.JButton showAllAllowance;
     private javax.swing.JComboBox<String> typeComboBox;
     // End of variables declaration//GEN-END:variables
 }
