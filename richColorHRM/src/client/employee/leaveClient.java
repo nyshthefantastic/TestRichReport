@@ -25,13 +25,15 @@ public class leaveClient extends javax.swing.JFrame {
     helperFunctions hf = new helperFunctions();
     ResultSet rs = null;
     Statement stmt;
-    PreparedStatement pst=null;
-    double tot=0;
-     Connection conn=null;
+    PreparedStatement pst = null;
+    double tot = 0;
+    String[] splitted = new String[2];
+    Connection conn = null;
+
     public leaveClient() {
         initComponents();
         initial();
-         conn=dbconnct.connect();
+        conn = dbconnct.connect();
     }
 
     /**
@@ -268,43 +270,42 @@ public class leaveClient extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String name = empNoCmb.getSelectedItem().toString();
-        String[] spliited = name.split("-");
-        String empId = spliited[1];
-     
-    //    int Year = Calendar.getInstance().get(Calendar.YEAR);
-    int Year=2016;  
-    System.out.println(Year);
-       
-        
-    //    String sql = "Select SUM(noOfDays) AS noofdays,type from leaves GROUP BY type WHERE employeeId='" + String.valueOf(empId) + "' AND year='" + String.valueOf(Year) + "'";
-    //    System.out.println(sql);
-         try {
-        String sql = "Select SUM(noOfDays) AS noOfDays,type from leaves GROUP BY type  WHERE employeeId='" + String.valueOf(empId) + "' AND yearr='" + String.valueOf(Year) + "'";
+        splitted = name.split("-");
+        String empId = splitted[1];
+        splitted[0] = "";
+        splitted[1] = "";
+        //    int Year = Calendar.getInstance().get(Calendar.YEAR);
+        int Year = 2016;
+        System.out.println(Year);
+
+        //    String sql = "Select SUM(noOfDays) AS noofdays,type from leaves GROUP BY type WHERE employeeId='" + String.valueOf(empId) + "' AND year='" + String.valueOf(Year) + "'";
+        //    System.out.println(sql);
+        try {
+            String sql = "Select SUM(noOfDays) AS noOfDays,type from leaves GROUP BY type  WHERE employeeId='" + String.valueOf(empId) + "' AND yearr='" + String.valueOf(Year) + "'";
 
             pst = conn.prepareStatement(sql);
             rs = pst.executeQuery();
             while (rs.next()) {
-              String typee = rs.getString("type");
+                String typee = rs.getString("type");
                 System.out.println(typee);
-                String  numdays = rs.getString("noOfDays");
-                tot=tot+Double.parseDouble(numdays);
+                String numdays = rs.getString("noOfDays");
+                tot = tot + Double.parseDouble(numdays);
                 if (typee.equals("sick")) {
                     sickTxt.setText(numdays);
-                    
+
                 } else if (typee.equals("annual")) {
                     annualTxt.setText(numdays);
-                    
+
                 } else {
-                    
+
                     casualTxt.setText(numdays);
-                    
+
                 }
             }
-             totalTxt.setText(String.valueOf(tot));
+            totalTxt.setText(String.valueOf(tot));
         } catch (Exception e) {
             System.out.println(e);
         }
-       
 
         // helperFunctions hp = new helperFunctions();
         // hp.searchQuery(   , eid, eid);
@@ -320,17 +321,16 @@ public class leaveClient extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_empNoCmbActionPerformed
-    
+
     private void initial() {
         String sql = "select * from employee";
         rs = hf.getQuery(sql);
         try {
             while (rs.next()) {
                 empNoCmb.addItem(rs.getString("fName") + " " + rs.getString("lName") + " -" + rs.getString("id"));
-                
-                
+
             }
-            
+
         } catch (Exception e) {
             System.out.println(e);
         }

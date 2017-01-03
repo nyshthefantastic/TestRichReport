@@ -21,7 +21,7 @@ public class salaryClient extends javax.swing.JFrame {
     
     salaryMiddle salaryMiddle;
     ResultSet rs = null;
-
+   String [] splitted=new String[2];
     /**
      * Creates new form salaryClient
      */
@@ -29,6 +29,7 @@ public class salaryClient extends javax.swing.JFrame {
         initComponents();
         salaryMiddle= new salaryMiddle();
         intialComponementItem();
+         
     }
 
     /**
@@ -842,12 +843,23 @@ public class salaryClient extends javax.swing.JFrame {
     }//GEN-LAST:event_empolyeeNameItemStateChanged
 
     private void empolyeeNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empolyeeNameActionPerformed
-               
+              String name = empolyeeName.getSelectedItem().toString();
+              
+              splitted = name.split("-");
+               String empId = splitted[1];  
+               splitted[0]="";
+               splitted[1]="";
+              epfNoTextBox.setText(empId);
     }//GEN-LAST:event_empolyeeNameActionPerformed
 
     private void empolyeeNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_empolyeeNameKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
              String name = empolyeeName.getItemAt(empolyeeName.getSelectedIndex());
+             splitted = name.split("-");
+               String empId = splitted[1];  
+               splitted[0]="";
+               splitted[1]="";
+              epfNoTextBox.setText(empId);
         }
     }//GEN-LAST:event_empolyeeNameKeyPressed
 
@@ -868,10 +880,10 @@ public class salaryClient extends javax.swing.JFrame {
         
         //initialize employee combo box
         
-        rs = salaryMiddle.getQuery("SELECT fname,lName FROM employee");
+        rs = salaryMiddle.getQuery("SELECT fname,lName,epfNo FROM employee");
         try{
             while(rs.next()){
-                empolyeeName.addItem(rs.getString("fname")+" "+rs.getString("lname"));
+                empolyeeName.addItem(rs.getString("fname")+" "+rs.getString("lname")+" -"+rs.getString("epfNo"));
             }
         }catch(Exception e){
             System.out.println(e);

@@ -21,7 +21,7 @@ public class dbconnct {
         
         try {
         Class.forName("com.mysql.jdbc.Driver");
-        dbcon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/richcolour","root","");
+        dbcon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/richcolour","root","abc@123");
             System.out.println("connected");
         
         } 

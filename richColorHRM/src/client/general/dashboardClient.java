@@ -109,6 +109,11 @@ public class dashboardClient extends javax.swing.JFrame {
         jMenu2.setText("PAYROLL");
 
         jMenuItem8.setText("PAY SALARY");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem8);
 
         jMenuItem9.setText("PAY EPF/ETF");
@@ -191,6 +196,10 @@ public class dashboardClient extends javax.swing.JFrame {
         this.setVisible(false);
         
     }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments
