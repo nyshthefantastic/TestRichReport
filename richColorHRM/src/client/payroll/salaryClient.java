@@ -825,11 +825,11 @@ public class salaryClient extends javax.swing.JFrame {
         String  sql ="SELECT * FROM `employee` WHERE epfNo = '"+epfNoTextBox.getText()+"'";        
         rs=salaryMiddle.getQuery(sql);        
         try{
-            while(rs.next()){
+            if(rs.next()){
                 String bSalaryVal=rs.getString("bSalary");
                 bSalary.setText("");
                 bSalary.setText(bSalaryVal);
-                break;
+                
             }
         }catch(Exception e){
             System.out.println(e);
