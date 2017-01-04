@@ -823,18 +823,7 @@ public class salaryClient extends javax.swing.JFrame {
     }//GEN-LAST:event_epfNoTextBoxKeyReleased
 
     private void calculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateActionPerformed
-        String  sql ="SELECT * FROM `employee` WHERE epfNo = '"+epfNoTextBox.getText()+"'";        
-        rs=salaryMiddle.getQuery(sql);        
-        try{
-            if(rs.next()){
-                String bSalaryVal=rs.getString("bSalary");
-                bSalary.setText("");
-                bSalary.setText(bSalaryVal);
-                
-            }
-        }catch(Exception e){
-            System.out.println(e);
-        }
+    
     }//GEN-LAST:event_calculateActionPerformed
 
     private void empolyeeNameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_empolyeeNameItemStateChanged
