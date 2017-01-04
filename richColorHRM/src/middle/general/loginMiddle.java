@@ -30,7 +30,6 @@ public class loginMiddle {
     public boolean verifyLogin(String userName, String passWord) {
         try {
             String load = "SELECT userName,password FROM login";
-
             pst = con.prepareStatement(load);
             rs = pst.executeQuery();
             while (rs.next()) {
