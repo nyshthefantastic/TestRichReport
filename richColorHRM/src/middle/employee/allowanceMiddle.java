@@ -21,6 +21,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import common.helperFunctions;
 import common.message;
+import javax.swing.table.TableColumn;
 import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,21 +48,13 @@ public class allowanceMiddle {
         return rs;
     }
      
-    //fill Employee table    
-   public  void Table(JTable tableName,String Sql,String []cols,String dbCols []){
+   //fill Employee table    
+   public  void Table(JTable tableName,String Sql,String dbCols []){
         DefaultTableModel Table =(DefaultTableModel) tableName.getModel();
         int rowCount = Table.getRowCount();
-        int colCount = Table.getColumnCount();
         //Remove rows one by one from the end of the table
         for (int i = rowCount-1; i>=0 ; i--) {
            Table.removeRow(i);
-        }
-        //add coloums to table
-        
-        if(colCount == 0){
-            for (int y = 0 ; y<cols.length;y++){
-            Table.addColumn(cols[y]);
-            }
         }
         ResultSet rs=rs(Sql);
         if(rs!=null){
@@ -82,6 +75,15 @@ public class allowanceMiddle {
         }         
     }
    
+   //table row remover
+   public void removeTableRow(JTable tableName){
+       DefaultTableModel Table =(DefaultTableModel) tableName.getModel();
+       int rowCount=Table.getRowCount();
+       for (int i = rowCount-1; i>=0 ; i--) {
+           Table.removeRow(i);
+        }
+   }
+   
    //get selected row
     public String selectedRowEelement(JTable table,int colm) {
         // get the selected row
@@ -90,6 +92,14 @@ public class allowanceMiddle {
         // return the value
         return returnNum;
     }   
+    
+    //delete coloum in table
+    public void deleteColoum(JTable Table,int key){
+        TableColumn tc=Table.getColumnModel().getColumn(key);
+        Table.removeColumn(tc);
+    }
+    
+    //public insert column to table
     
     public boolean insertQuery(String sql){
         boolean status=false;
@@ -106,6 +116,7 @@ public class allowanceMiddle {
     
     }
    
+    
     
     
     
