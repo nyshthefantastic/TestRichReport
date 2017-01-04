@@ -72,7 +72,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <Component id="showAllAllowance" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="showAllIncentive" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -86,7 +86,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="amountAllowance" min="-2" pref="167" max="-2" attributes="0"/>
+                                  <Component id="amountIncentive" min="-2" pref="167" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel1" min="-2" pref="95" max="-2" attributes="0"/>
@@ -130,7 +130,7 @@
                               <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="amount" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel7" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="amountAllowance" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="amountIncentive" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -149,7 +149,7 @@
                               <Component id="add" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="edit" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="reset" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="showAllAllowance" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="showAllIncentive" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -218,20 +218,20 @@
         </Component>
         <Component class="javax.swing.JTextField" name="employeeName">
         </Component>
-        <Component class="javax.swing.JButton" name="showAllAllowance">
+        <Component class="javax.swing.JButton" name="showAllIncentive">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Show All Allowance"/>
+            <Property name="text" type="java.lang.String" value="Show All Incentive"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showAllAllowanceActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showAllIncentiveActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Totall Amount of Intensive :"/>
+            <Property name="text" type="java.lang.String" value="Totall Amount of Incentive :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="amountAllowance">
+        <Component class="javax.swing.JLabel" name="amountIncentive">
           <Properties>
             <Property name="text" type="java.lang.String" value="0000"/>
           </Properties>
@@ -250,9 +250,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel6" pref="227" max="32767" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="searchTextFeild" min="-2" pref="462" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="SearchBtn" min="-2" max="-2" attributes="0"/>
+                          <Component id="searchTextFeild" min="-2" pref="537" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -265,7 +263,6 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="searchTextFeild" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="SearchBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -281,14 +278,9 @@
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="searchTextFeildKeyReleased"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="SearchBtn">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Search"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Search by Customer or EPF Number"/>
+            <Property name="text" type="java.lang.String" value="Search Employee"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JTabbedPane" name="Tab">
@@ -335,15 +327,15 @@
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Allowance">
-                    <Property name="tabTitle" type="java.lang.String" value="Allowance"/>
+                  <JTabbedPaneConstraints tabName="Incentive">
+                    <Property name="tabTitle" type="java.lang.String" value="Incentive"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="allowanceTable">
+                <Component class="javax.swing.JTable" name="IncentiveTable">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="3" rowCount="0">
