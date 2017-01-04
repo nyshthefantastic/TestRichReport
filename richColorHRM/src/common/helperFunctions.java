@@ -16,6 +16,9 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import common.dbconnct;
+import java.sql.ResultSetMetaData;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -89,16 +92,12 @@ public  class helperFunctions {
      public ResultSet getQuery(String sql){
          try{
              Statement stat=conn.createStatement();
-             return stat.executeQuery(sql);
-             
-         
-         
+             return stat.executeQuery(sql);       
          }catch(Exception e){
              e.printStackTrace();
-             return null;
-         
-         }
-     
-     
+             return null;         
+         }    
      }
+     
+     
 }

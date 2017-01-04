@@ -7,11 +7,18 @@ package client.employee;
 
 import common.dbconnct;
 import common.helperFunctions;
+import common.queryHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Date;
+import middle.employee.leaveMiddle;
 
 /**
  *
@@ -22,6 +29,7 @@ public class leaveClient extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
+    queryHelper qh;
     helperFunctions hf = new helperFunctions();
     ResultSet rs = null;
     Statement stmt;
@@ -29,13 +37,14 @@ public class leaveClient extends javax.swing.JFrame {
     double tot = 0;
     String[] splitted = new String[2];
     Connection conn = null;
-
+    leaveMiddle lm=new leaveMiddle();
     public leaveClient() {
         initComponents();
         initial();
         conn = dbconnct.connect();
+        qh=new queryHelper();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,18 +64,18 @@ public class leaveClient extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         annualTxt = new javax.swing.JTextField();
         sickTxt = new javax.swing.JTextField();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        fromText = new org.jdesktop.swingx.JXDatePicker();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox6 = new javax.swing.JComboBox<>();
+        reasonText = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jTextField4 = new javax.swing.JTextField();
-        jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
+        otherText = new javax.swing.JTextField();
+        toText = new org.jdesktop.swingx.JXDatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,7 +131,7 @@ public class leaveClient extends javax.swing.JFrame {
 
         jLabel12.setText("Other");
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        reasonText.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel11.setText("Reason");
 
@@ -145,6 +154,10 @@ public class leaveClient extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(totalTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(157, 157, 157))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -172,34 +185,32 @@ public class leaveClient extends javax.swing.JFrame {
                                             .addGap(59, 59, 59)
                                             .addComponent(casualTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(jLabel8))))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(jLabel9)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(jLabel4)
-                                                .addGap(16, 16, 16)))
-                                        .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(97, 97, 97))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(26, 26, 26)
-                                        .addComponent(jLabel12)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))))))
-                    .addContainerGap(153, Short.MAX_VALUE)))
+                            .addContainerGap(199, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel11)
+                                .addComponent(jLabel3))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(fromText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(jLabel9)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(jLabel4)
+                                            .addGap(16, 16, 16)))
+                                    .addComponent(toText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(97, 97, 97))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(reasonText, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(26, 26, 26)
+                                    .addComponent(jLabel12)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(otherText, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)))
+                            .addContainerGap(153, Short.MAX_VALUE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,7 +220,9 @@ public class leaveClient extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jLabel13)
                     .addComponent(totalTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(387, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(138, 138, 138))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(32, 32, 32)
@@ -233,21 +246,19 @@ public class leaveClient extends javax.swing.JFrame {
                             .addGap(37, 37, 37))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fromText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(toText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel3)
                                 .addComponent(jLabel4))
                             .addGap(18, 18, 18)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(otherText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
-                            .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGap(18, 18, 18)
-                    .addComponent(jButton2)
-                    .addContainerGap(217, Short.MAX_VALUE)))
+                            .addComponent(reasonText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(258, Short.MAX_VALUE)))
         );
 
         pack();
@@ -275,37 +286,19 @@ public class leaveClient extends javax.swing.JFrame {
         splitted[0] = "";
         splitted[1] = "";
         //    int Year = Calendar.getInstance().get(Calendar.YEAR);
-        int Year = 2016;
-        System.out.println(Year);
-
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int Year = localDate.getYear();
+        Double [] ras=new Double[4];
+        ras=lm.setLeaves(empId, Year);
+        sickTxt.setText(String.valueOf(ras[0]));
+        annualTxt.setText(String.valueOf(ras[1]));
+        casualTxt.setText(String.valueOf(ras[2]));
+        totalTxt.setText(String.valueOf(ras[3]));
+        
         //    String sql = "Select SUM(noOfDays) AS noofdays,type from leaves GROUP BY type WHERE employeeId='" + String.valueOf(empId) + "' AND year='" + String.valueOf(Year) + "'";
         //    System.out.println(sql);
-        try {
-            String sql = "Select SUM(noOfDays) AS noOfDays,type from leaves GROUP BY type  WHERE employeeId='" + String.valueOf(empId) + "' AND yearr='" + String.valueOf(Year) + "'";
-
-            pst = conn.prepareStatement(sql);
-            rs = pst.executeQuery();
-            while (rs.next()) {
-                String typee = rs.getString("type");
-                System.out.println(typee);
-                String numdays = rs.getString("noOfDays");
-                tot = tot + Double.parseDouble(numdays);
-                if (typee.equals("sick")) {
-                    sickTxt.setText(numdays);
-
-                } else if (typee.equals("annual")) {
-                    annualTxt.setText(numdays);
-
-                } else {
-
-                    casualTxt.setText(numdays);
-
-                }
-            }
-            totalTxt.setText(String.valueOf(tot));
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+       
 
         // helperFunctions hp = new helperFunctions();
         // hp.searchQuery(   , eid, eid);
@@ -313,7 +306,27 @@ public class leaveClient extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+         Date oDate = fromText.getDate();
+        DateFormat oDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String from = oDateFormat.format(oDate);
 
+        DateFormat oDateFormatt = new SimpleDateFormat("yyyy");
+        String fromYear = oDateFormatt.format(oDate);
+        
+        Date oDatee = toText.getDate();
+       
+        String due = oDateFormat.format(oDatee);
+
+       
+        String dueYear = oDateFormatt.format(oDate);
+        
+        
+        String reason=reasonText.getSelectedItem().toString();
+        String other=otherText.getText();
+       String SQL ="INSERT INTO `leavez` (`date`, `noOfDays`, `type`, `reason`, `employeeId`, `yearr`) VALUES ('2017-01-03', '2', 'sick', 'dsasdasdas', '', '');";
+        qh.insertQuery(SQL);
+        
+       
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void empNoCmbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empNoCmbActionPerformed
@@ -327,7 +340,7 @@ public class leaveClient extends javax.swing.JFrame {
         rs = hf.getQuery(sql);
         try {
             while (rs.next()) {
-                empNoCmb.addItem(rs.getString("fName") + " " + rs.getString("lName") + " -" + rs.getString("id"));
+                empNoCmb.addItem(rs.getString("fName") + " " + rs.getString("lName") + "-" + rs.getString("id"));
 
             }
 
@@ -376,9 +389,9 @@ public class leaveClient extends javax.swing.JFrame {
     private javax.swing.JTextField annualTxt;
     private javax.swing.JTextField casualTxt;
     private javax.swing.JComboBox<String> empNoCmb;
+    private org.jdesktop.swingx.JXDatePicker fromText;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -390,10 +403,10 @@ public class leaveClient extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField4;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
+    private javax.swing.JTextField otherText;
+    private javax.swing.JComboBox<String> reasonText;
     private javax.swing.JTextField sickTxt;
+    private org.jdesktop.swingx.JXDatePicker toText;
     private javax.swing.JTextField totalTxt;
     // End of variables declaration//GEN-END:variables
 }

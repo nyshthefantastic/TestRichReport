@@ -22,6 +22,7 @@ public class salaryClient extends javax.swing.JFrame {
     salaryMiddle salaryMiddle;
     ResultSet rs = null;
    String [] splitted=new String[2];
+   
     /**
      * Creates new form salaryClient
      */
@@ -823,7 +824,10 @@ public class salaryClient extends javax.swing.JFrame {
     }//GEN-LAST:event_epfNoTextBoxKeyReleased
 
     private void calculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateActionPerformed
-    
+           String eid=epfNoTextBox.getText();
+            salaryMiddle=new salaryMiddle();
+            salaryMiddle.populateFields(eid);
+            
     }//GEN-LAST:event_calculateActionPerformed
 
     private void empolyeeNameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_empolyeeNameItemStateChanged

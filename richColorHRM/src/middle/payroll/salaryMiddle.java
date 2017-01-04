@@ -17,8 +17,9 @@ public class salaryMiddle {
 
     Connection conn=null;
     Statement st;
+    ResultSet rs=null;
     int id=0;
-    
+    String [] dataS=new String [15];
     
     
     public salaryMiddle() {
@@ -37,8 +38,59 @@ public class salaryMiddle {
             return null;
         }
     }
-    
-    
-    
-   
+    public String populateFields(String eid){
+      dataS[0]=getBsalary(eid);
+      dataS[1]=getBRA();
+      
+        
+        
+    }
+     private String getEpf(String eid){
+        rs=getQuery("SELECT epf FROM employee WHERE epfNo='" + eid + "'");
+        try{
+        if(rs.next()){
+            String bsalary=rs.getString("bSalary");
+            return bsalary;
+        
+        
+        }
+        }catch(Exception e){
+        
+        
+        }
+        return null;
+    }
+    private String getBRA(){
+        rs=getQuery("SELECT amount FROM rates '");
+        try{
+        if(rs.next()){
+            String id=rs.getString("id");
+            if(id.equals("1")){
+            String amount=rs.getString("amount");
+            return amount;
+            }
+        
+        }
+        }catch(Exception e){
+        
+        
+        }
+        return null;
+    }
+    private String getBsalary(String eid){
+        rs=getQuery("SELECT bSalary FROM employee WHERE epfNo='" + eid + "'");
+        try{
+        if(rs.next()){
+            String bsalary=rs.getString("bSalary");
+            return bsalary;
+        
+        
+        }
+        }catch(Exception e){
+        
+        
+        }
+        return null;
+    }
 }
+   
