@@ -29,6 +29,8 @@ public class validations {
         }
 
     }
+    
+    
 
     public boolean checkFieldText(String fName, String lName, String bank) {
         Pattern p = Pattern.compile("[a-zA-Z]+");
@@ -40,6 +42,19 @@ public class validations {
         } else {
             mess = new message();
             mess.messageBox("First Name, Last Name and Bank should only contain [A-Z | a-z] !");
+            return false;
+
+        }
+
+    }
+    public boolean isText(String value) {
+        Pattern p = Pattern.compile("[a-zA-Z]+");
+        Matcher m = p.matcher(value);
+        if (m.find()) {
+            return true;
+        } else {
+            mess = new message();
+            mess.messageBox("Please check input || Text Only Feild !");
             return false;
 
         }
@@ -102,6 +117,23 @@ public class validations {
     
     
     }
+    
+    public boolean NumberValidatiion(String acNum){
+    
+           Pattern p = Pattern.compile("[0-9]+");
+        Matcher m = p.matcher(acNum);
+        if ((m.find() && m.group().equals(acNum))) {
+            return true;
+        } else {
+            mess = new message();
+            mess.messageBox("Do not enter letters on numeric feilds");
+            return false;
+        }
+    
+    
+    }
+    
+    
       public boolean salaryValidatiion(double bsal){
     
        
