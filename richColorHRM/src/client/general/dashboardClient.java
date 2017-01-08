@@ -8,6 +8,7 @@ import client.attendance.manualAttendanceClient;
 import client.employee.advanceClient;
 import client.employee.loanClient;
 import client.employee.registerClient;
+import middle.general.dashboardMiddle;
 /**
  *
  * @author Nuwan-PC
@@ -17,8 +18,12 @@ public class dashboardClient extends javax.swing.JFrame {
     /**
      * Creates new form dashboardClient
      */
+    dashboardMiddle dm;
     public dashboardClient() {
         initComponents();
+        dm=new dashboardMiddle();
+        afterSixMonthx();
+        afterThreeMonthsx();
     }
 
     /**
@@ -162,7 +167,15 @@ public class dashboardClient extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
     }// </editor-fold>//GEN-END:initComponents
-
+    private void afterSixMonthx(){
+        
+    dm.afterSixMonth();
+    }
+    private void afterThreeMonthsx(){
+    
+    dm.afterThreeMonth();
+    }
+    
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
         registerClient rC=new registerClient();
