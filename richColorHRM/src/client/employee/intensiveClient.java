@@ -50,18 +50,17 @@ public class intensiveClient extends javax.swing.JFrame {
         edit = new javax.swing.JButton();
         reset = new javax.swing.JButton();
         employeeName = new javax.swing.JTextField();
-        showAllAllowance = new javax.swing.JButton();
+        showAllIncentive = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        amountAllowance = new javax.swing.JLabel();
+        amountIncentive = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         searchTextFeild = new javax.swing.JTextField();
-        SearchBtn = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         Tab = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         EmployeeTable = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        allowanceTable = new javax.swing.JTable();
+        IncentiveTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,16 +90,16 @@ public class intensiveClient extends javax.swing.JFrame {
             }
         });
 
-        showAllAllowance.setText("Show All Allowance");
-        showAllAllowance.addActionListener(new java.awt.event.ActionListener() {
+        showAllIncentive.setText("Show All Incentive");
+        showAllIncentive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showAllAllowanceActionPerformed(evt);
+                showAllIncentiveActionPerformed(evt);
             }
         });
 
-        jLabel7.setText("Totall Amount of Intensive :");
+        jLabel7.setText("Totall Amount of Incentive :");
 
-        amountAllowance.setText("0000");
+        amountIncentive.setText("0000");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -122,7 +121,7 @@ public class intensiveClient extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(epfNo, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                                 .addComponent(employeeName))))
-                    .addComponent(showAllAllowance))
+                    .addComponent(showAllIncentive))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -134,7 +133,7 @@ public class intensiveClient extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(amountAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(amountIncentive, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -167,7 +166,7 @@ public class intensiveClient extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(amountAllowance))
+                            .addComponent(amountIncentive))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -182,7 +181,7 @@ public class intensiveClient extends javax.swing.JFrame {
                             .addComponent(add)
                             .addComponent(edit)
                             .addComponent(reset)
-                            .addComponent(showAllAllowance))))
+                            .addComponent(showAllIncentive))))
                 .addContainerGap())
         );
 
@@ -192,9 +191,7 @@ public class intensiveClient extends javax.swing.JFrame {
             }
         });
 
-        SearchBtn.setText("Search");
-
-        jLabel6.setText("Search by Customer or EPF Number");
+        jLabel6.setText("Search Employee");
 
         EmployeeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -228,7 +225,7 @@ public class intensiveClient extends javax.swing.JFrame {
 
         Tab.addTab("Employee", jScrollPane1);
 
-        allowanceTable.setModel(new javax.swing.table.DefaultTableModel(
+        IncentiveTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -251,9 +248,9 @@ public class intensiveClient extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(allowanceTable);
+        jScrollPane2.setViewportView(IncentiveTable);
 
-        Tab.addTab("Allowance", jScrollPane2);
+        Tab.addTab("Incentive", jScrollPane2);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -266,9 +263,7 @@ public class intensiveClient extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(searchTextFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(SearchBtn)))
+                        .addComponent(searchTextFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -277,7 +272,6 @@ public class intensiveClient extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchTextFeild, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SearchBtn)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Tab, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
@@ -317,9 +311,9 @@ public class intensiveClient extends javax.swing.JFrame {
         
     }//GEN-LAST:event_resetActionPerformed
 
-    private void showAllAllowanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllAllowanceActionPerformed
+    private void showAllIncentiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllIncentiveActionPerformed
         
-    }//GEN-LAST:event_showAllAllowanceActionPerformed
+    }//GEN-LAST:event_showAllIncentiveActionPerformed
 
     private void searchTextFeildKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTextFeildKeyReleased
         Tab.setSelectedIndex(0);
@@ -367,12 +361,11 @@ public class intensiveClient extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable EmployeeTable;
-    private javax.swing.JButton SearchBtn;
+    private javax.swing.JTable IncentiveTable;
     private javax.swing.JTabbedPane Tab;
     private javax.swing.JButton add;
-    private javax.swing.JTable allowanceTable;
     private javax.swing.JTextField amount;
-    private javax.swing.JLabel amountAllowance;
+    private javax.swing.JLabel amountIncentive;
     private org.jdesktop.swingx.JXDatePicker datePicker;
     private javax.swing.JButton edit;
     private javax.swing.JTextField employeeName;
@@ -390,7 +383,7 @@ public class intensiveClient extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton reset;
     private javax.swing.JTextField searchTextFeild;
-    private javax.swing.JButton showAllAllowance;
+    private javax.swing.JButton showAllIncentive;
     private javax.swing.JComboBox<String> typeComboBox;
     // End of variables declaration//GEN-END:variables
 }

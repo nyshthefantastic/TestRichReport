@@ -373,7 +373,8 @@ public class allowanceClient extends javax.swing.JFrame {
         int selectedRow=EmployeeTable.getSelectedRow();
         if(tabletype){
             if(selectedRow!=-1){
-            selectEmployeeInitial(selectedRow);          
+                selectEmployeeInitial(selectedRow); 
+                InitialAllowanceTable();
             }
         }
     }//GEN-LAST:event_EmployeeTableMouseClicked
