@@ -52,7 +52,6 @@ public class allowanceClient extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDatePickerUtil1 = new org.jdatepicker.util.JDatePickerUtil();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         epfNo = new javax.swing.JTextField();
@@ -592,7 +591,6 @@ public class allowanceClient extends javax.swing.JFrame {
     private javax.swing.JButton edit;
     private javax.swing.JTextField employeeName;
     private javax.swing.JTextField epfNo;
-    private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

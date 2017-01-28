@@ -19,9 +19,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 
 
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
+
 
 /**
  *
@@ -58,7 +56,6 @@ public class manualAttendanceClient extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dateComponentFormatter1 = new org.jdatepicker.impl.DateComponentFormatter();
         buttonGroup1 = new javax.swing.ButtonGroup();
         headerLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -247,7 +244,6 @@ public class manualAttendanceClient extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private org.jdatepicker.impl.DateComponentFormatter dateComponentFormatter1;
     private org.jdesktop.swingx.JXDatePicker dateJpicker;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JTextField idText;
