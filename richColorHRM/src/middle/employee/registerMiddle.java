@@ -35,7 +35,7 @@ public class registerMiddle {
         con = dbconnct.connect();
     }
 
-    public void registerEmployee(String fName, String lName, String cNum, String nic, String dob, String gender, String bank, String acNum, double bSalary, String category, String designation, String department, String year, String status) {
+    public void registerEmployee(String fName, String lName, String cNum, String nic, String dob, String gender, String bank, String acNum, double bSalary, String category, String designation, String department, String year, String status,String district) {
 
         String nyear = getAge(year);
 
@@ -45,7 +45,7 @@ public class registerMiddle {
 
         if (valid == true) {
             try {
-                String q = "INSERT INTO employeeregister(fName,lName,contactNo,nic,dob,gender,bank,accountNo,bSalary,category,designation,department,age,joinDate,status) VALUES ('" + fName + "','" + lName + "','" + cNum + "','" + nic + "','" + dob + "','" + gender + "','" + bank + "','" + acNum + "','" + bSalary + "','" + category + "','" + designation + "','" + department + "','" + nyear + "','" + modifiedDate + "','" + status + "')";
+                String q = "INSERT INTO employeeregister(fName,lName,contactNo,nic,dob,gender,bank,accountNo,bSalary,category,designation,department,age,joinDate,status,district) VALUES ('" + fName + "','" + lName + "','" + cNum + "','" + nic + "','" + dob + "','" + gender + "','" + bank + "','" + acNum + "','" + bSalary + "','" + category + "','" + designation + "','" + department + "','" + nyear + "','" + modifiedDate + "','" + status + "','" + district + "')";
 
                 pst = con.prepareStatement(q);
                 pst.execute();
